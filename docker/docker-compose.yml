@@ -1,0 +1,32 @@
+version: "2.1"
+services:
+  # mariadb:
+  #   image: ghcr.io/linuxserver/mariadb
+  #   container_name: mariadb_todo_app
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASS
+  #     - TZ=Europe/Berlin
+  #     - MYSQL_DATABASE=$DB_NAME
+  #     - MYSQL_USER=$DB_USER
+  #     - MYSQL_PASSWORD=$DB_PASS
+  #   volumes:
+  #     - ./data/mariadb:/config
+  #   ports:
+  #     - $DB_PORT:3306
+  #   restart: unless-stopped
+
+  db:
+    image: mongo:4.1.8-xenial
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - $MONGO_PORT:27017
+    restart: unless-stopped 
